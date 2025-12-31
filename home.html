@@ -1,0 +1,260 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dharmendra N K R - Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+  /* Minimal, legible variables */
+  :root{
+    --bg: #ffffff;
+    --card: #fbfdff;
+    --text: #0f172a;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --border: #eef2f6;
+    --radius: 12px;
+    --gap: 1rem;
+    --shadow-subtle: 0 2px 6px rgba(16,24,40,0.04);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* Reset */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;background:var(--bg);color:var(--text)}
+  body{line-height:1.5}
+
+  /* Navbar */
+  .navbar{
+    position:fixed;left:0;right:0;top:0;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
+  }
+  .nav-container{
+    max-width:1100px;margin:0 auto;padding:0.75rem 1rem;display:flex;align-items:center;gap:1rem;
+  }
+  .logo{
+    font-weight:700;font-size:1.125rem;color:var(--text);
+  }
+  .nav-links{display:flex;list-style:none;gap:1rem;margin-left:auto}
+  .nav-links a{
+    color:var(--text);text-decoration:none;padding:0.5rem 0.75rem;border-radius:8px;font-weight:500;
+  }
+  .nav-links a:hover{background:rgba(37,99,235,0.08);color:var(--accent)}
+
+  .mobile-menu-btn{
+    display:none;background:none;border:0;color:var(--text);font-size:1.25rem;cursor:pointer;
+  }
+
+  /* Hero */
+  .hero{
+    min-height:calc(100vh - 72px);padding:5rem 1rem 3rem;display:flex;align-items:center;justify-content:center;
+  }
+  .hero-inner{max-width:1100px;width:100%;display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:center}
+  .hero-text .greeting{color:var(--muted);font-weight:600;margin-bottom:0.5rem}
+  .hero-title{font-size:2.5rem;font-weight:700;margin-bottom:0.75rem;color:var(--text)}
+  .hero-subtitle{color:var(--muted);margin-bottom:1.25rem;max-width:55ch}
+  .hero-buttons{display:flex;gap:0.75rem}
+  .btn{padding:0.6rem 1rem;border-radius:8px;font-weight:600;border:1px solid transparent;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{opacity:0.95}
+  .btn-secondary{background:transparent;color:var(--accent);border-color:var(--border)}
+  .profile-image{width:380px;height:380px;border-radius:50%;object-fit:cover;border:1px solid var(--border);background:var(--card);}
+
+  /* Social (moved under hero) */
+  .social-icons{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+  .social-link{display:flex;gap:0.5rem;align-items:center;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border);text-decoration:none;color:var(--text);background:transparent;font-weight:600}
+
+  /* Sections */
+  section{padding:2.5rem 1rem}
+  .about, .projects, .contact{max-width:1100px;margin:0 auto}
+  .section-title{font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:0.5rem}
+  .section-subtitle{color:var(--muted);margin-bottom:1rem}
+
+  /* About layout - left text + right skills (2x3) */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start}
+  .about-text p{color:var(--muted);line-height:1.6}
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem}
+  .skill-item{display:flex;gap:0.75rem;align-items:center;padding:0.75rem;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-weight:500}
+
+  /* Projects (kept in CSS but removed from markup on homepage) */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+  .project-card{background:var(--card);border:1px solid var(--border);padding:1rem;border-radius:10px;box-shadow:var(--shadow-subtle)}
+  .project-title{font-weight:600;color:var(--text);margin-bottom:0.5rem}
+  .project-description{color:var(--muted);font-size:0.95rem}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+  .contact-item{padding:1rem;border-radius:10px;background:var(--card);border:1px solid var(--border);text-align:center}
+  .contact-icon{font-size:1.25rem;color:var(--accent);margin-bottom:0.5rem}
+
+  /* Footer */
+  .footer{padding:2rem 1rem;text-align:center;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem}
+
+  /* Simple animations */
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .fade{animation:fadeInUp 0.6s ease both}
+
+  /* Responsive */
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr 300px}
+    .profile-image{width:300px;height:300px}
+  }
+  @media (max-width:720px){
+    .nav-links{display:none}
+    .mobile-menu-btn{display:block;margin-left:auto}
+    .hero-inner{grid-template-columns:1fr;text-align:left}
+    .profile-image{width:220px;height:220px;margin:0 auto}
+    .hero{padding-top:5.5rem}
+    .about-grid{grid-template-columns:1fr}
+    .skills-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:420px){
+    .hero-title{font-size:1.5rem}
+    .skills-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">Dharmendra N K R</div>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="resume.pdf" target="_blank">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-inner fade">
+      <div class="hero-text">
+        <div class="greeting">Hello, I'm</div>
+        <h1 class="hero-title">Dharmendra N K R</h1>
+        <p class="hero-subtitle">
+          Full-Stack Developer and UI/UX enthusiast focused on clean, accessible web experiences.
+        </p>
+        <div class="hero-buttons">
+          <a href="projects.html" class="btn btn-primary"><i class="fas fa-code"></i> View Work</a>
+          <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+
+        <!-- Social buttons moved here (below hero buttons) -->
+        <div class="social-icons" aria-label="social links">
+          <a href="https://github.com/Dharmendra-nkr" target="_blank" class="social-link"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/dharmendra-nkr" target="_blank" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="https://www.kaggle.com/dharmendrankr" target="_blank" class="social-link"><i class="fab fa-kaggle"></i> Kaggle</a>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center">
+        <img src="pp.jpeg" alt="Dharmendra N K R" class="profile-image">
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section (updated: description + 2x3 skills grid) -->
+  <section id="about" class="about">
+    <div class="about">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">I build simple and usable interfaces backed by solid code.</p>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a full-stack developer with experience building web and mobile applications. I prefer minimal, clear interfaces and maintainable code.
+          </p>
+        </div>
+
+        <!-- Skills grid: 2 columns x 3 rows (placeholders you can edit) -->
+        <div class="skills-grid" aria-label="skills">
+          <div class="skill-item"><i class="fas fa-code" style="color:var(--accent)"></i> Skill One</div>
+          <div class="skill-item"><i class="fas fa-lightbulb" style="color:var(--accent)"></i> Skill Two</div>
+          <div class="skill-item"><i class="fab fa-js-square" style="color:var(--accent)"></i> Skill Three</div>
+          <div class="skill-item"><i class="fab fa-react" style="color:var(--accent)"></i> Skill Four</div>
+          <div class="skill-item"><i class="fab fa-node-js" style="color:var(--accent)"></i> Skill Five</div>
+          <div class="skill-item"><i class="fas fa-database" style="color:var(--accent)"></i> Skill Six</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section (social buttons removed from here) -->
+  <section id="contact" class="contact">
+    <div class="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-subtitle">Get in touch for collaborations or freelance work.</p>
+      <div class="contact-grid" style="margin-top:1rem">
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div style="color:var(--text)">nkrdharmendra@gmail.com</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div style="color:var(--text)">+91 9677964312</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects section removed as requested -->
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Dharmendra N K R. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+<script>
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e){
+      const target = document.querySelector(this.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+  });
+
+  // Mobile menu toggle
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const navLinks = document.querySelector('.nav-links');
+  mobileMenuBtn && mobileMenuBtn.addEventListener('click', () => {
+    if(!navLinks) return;
+    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.gap = '0.5rem';
+    navLinks.style.padding = '0.5rem';
+    navLinks.style.background = 'var(--bg)';
+    navLinks.style.position = 'absolute';
+    navLinks.style.right = '1rem';
+    navLinks.style.top = '56px';
+    navLinks.style.borderRadius = '8px';
+    navLinks.style.boxShadow = 'var(--shadow-subtle)';
+  });
+
+  // Navbar subtle change on scroll
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if(!navbar) return;
+    if(window.scrollY > 20){
+      navbar.style.boxShadow = '0 2px 6px rgba(16,24,40,0.04)';
+    } else {
+      navbar.style.boxShadow = 'none';
+    }
+  });
+</script>
+</body>
+</html>
+<!-- ...existing code... -->

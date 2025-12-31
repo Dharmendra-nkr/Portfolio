@@ -1,0 +1,424 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects - Dharmendra N K R</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+  /* Reset & Base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --primary-color: #3b82f6;
+    --secondary-color: #2563eb;
+    --accent-color: #06b6d4;
+    --yellow-accent: #fbbf24;
+    --blue-light: #93c5fd;
+    --sky-blue: #0ea5e9;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #fafafa;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+    --gradient-accent: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* Dark mode variables (kept but toggle removed) */
+  [data-theme="dark"] {
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-card: #374151;
+    --border-color: #4b5563;
+  }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Smooth scrolling */
+  html { scroll-behavior: smooth; }
+
+  /* Navigation - made similar to home page */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--text-primary);
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin-left: auto;
+  }
+
+  .nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .nav-links a:hover { background: rgba(37,99,235,0.06); color: var(--secondary-color); }
+  .nav-links a.active { color: var(--secondary-color); font-weight: 700; }
+
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: 0;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+
+  /* Featured Project Section */
+  .featured-project {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 50%, #fef3c7 100%);
+    border-radius: 2rem;
+    margin: 2rem;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .featured-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .featured-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .featured-info { padding: 2rem 0; }
+
+  .featured-info .project-category { color: var(--accent-color); font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .featured-info .project-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); line-height: 1.2; }
+  .featured-info .project-description { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6; }
+
+  .project-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .feature-item { display:flex; align-items:center; gap:0.75rem; color:var(--text-secondary); font-weight:500; }
+  .feature-item i { color: var(--accent-color); font-size:1.1rem; }
+
+  .featured-screenshots { display:flex; gap:1.5rem; justify-content:center; align-items:flex-start; }
+  .phone-mockup { position:relative; max-width:200px; transition:transform 0.3s ease; }
+  .screenshot { width:100%; height:auto; border-radius:20px; box-shadow:var(--shadow-xl); border:3px solid var(--border-color); transition:all 0.3s ease; }
+  .screenshot:hover { border-color: var(--primary-color); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+  .screenshot-label { text-align:center; margin-top:1rem; color:var(--text-secondary); font-weight:500; font-size:0.875rem; }
+  .screenshot.large { padding: auto; display:block; width:300%; height:auto; border-radius:26px;transform: translateX(-6%);; } /* larger image styling */
+  /* Projects Grid */
+  .projects-section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px,1fr)); gap: 2rem; margin-top: 2rem; }
+
+  .project-card { background: var(--bg-card); border-radius: 1.5rem; overflow: hidden; border: 2px solid var(--blue-light); transition: all 0.3s ease; position: relative; box-shadow: var(--shadow-sm); }
+  .project-card:hover { transform: translateY(-8px); border-color: var(--primary-color); box-shadow: var(--shadow-xl); }
+
+  .project-image { width:100%; height:250px; background: var(--gradient-primary); display:flex; align-items:center; justify-content:center; font-size:4rem; color:white; position:relative; overflow:hidden; border-radius:1rem 1rem 0 0; }
+  .project-image::before { content:''; position:absolute; inset:0; background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); }
+
+  .project-content { padding:2rem; }
+  .project-category { color:var(--accent-color); font-size:0.875rem; font-weight:600; text-transform:uppercase; margin-bottom:0.5rem; }
+  .project-title { font-size:1.5rem; font-weight:700; margin-bottom:1rem; color:var(--text-primary); }
+  .project-description { color:var(--text-secondary); margin-bottom:1.5rem; line-height:1.6; }
+
+  .project-tech { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.5rem; }
+  .tech-tag { background:var(--bg-secondary); color:var(--text-secondary); padding:0.25rem 0.75rem; border-radius:1rem; font-size:0.875rem; border:1px solid var(--border-color); }
+
+  .project-links { display:flex; gap:1rem; }
+  .project-link { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.5rem; background:var(--gradient-primary); color:white; text-decoration:none; border-radius:0.75rem; font-weight:600; transition:all 0.3s ease; box-shadow:var(--shadow-sm); }
+  .project-link:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); background:var(--gradient-secondary); }
+  .project-link.secondary { background:var(--gradient-accent); color:var(--text-primary); border:none; }
+
+  /* Coming Soon Card */
+  .coming-soon { opacity:0.7; border-style:dashed; }
+  .coming-soon:hover { transform:none; border-color:var(--text-muted); }
+  .project-link.disabled { background:var(--bg-secondary); color:var(--text-muted); cursor:not-allowed; opacity:0.6; }
+  .project-link.disabled:hover { transform:none; box-shadow:none; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .featured-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+    .featured-screenshots { flex-direction: column; align-items: center; gap:1rem; }
+    .phone-mockup { max-width: 150px; }
+    .project-features { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .projects-section { padding: 2rem 1rem; }
+    .project-content { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">Dharmendra N K R</div>
+
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="home.html#about">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="resume.pdf" target="_blank">Resume</a></li>
+        <li><a href="home.html#contact">Contact</a></li>
+      </ul>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- Featured Project Section -->
+  <section class="featured-project">
+    <div class="featured-container">
+      <div class="featured-content">
+        <div class="featured-info">
+          <div class="project-category">Featured Project</div>
+          <h2 class="project-title">Essential - Task Management App</h2>
+          <p class="project-description">
+            Never lose a great idea or an important link again. Essential is a task 
+            management app for Android, built with Flutter, that centralizes your 
+            digital life—from daily tasks to essential notes and links.
+          </p>
+          <div class="project-features">
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Task Management & Organization</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-sticky-note"></i>
+              <span>Quick Notes & Ideas Capture</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-link"></i>
+              <span>Important Links Storage</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-moon"></i>
+              <span>Dark & Light Mode Support</span>
+            </div>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">Material Design</span>
+            <span class="tech-tag">Android</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Dharmendra-nkr/Essential" class="project-link">
+              <i class="fab fa-github"></i>
+              View Code
+            </a>
+            <a href="#" class="project-link secondary">
+              <i class="fab fa-google-play"></i>
+              Download App
+            </a>
+          </div>
+        </div>
+        <div class="featured-screenshots">
+          <div class="phone-mockup">
+            <img src="1.jpeg" alt="Essential App - Notes Tab" class="screenshot">
+            <div class="screenshot-label">Notes Tab</div>
+          </div>
+          <div class="phone-mockup">
+            <img src="2.jpeg" alt="Essential App - Links Tab" class="screenshot">
+            <div class="screenshot-label">Links Tab</div>
+          </div>
+          <div class="phone-mockup">
+            <img src="3.jpeg" alt="Essential App - Tasks Tab" class="screenshot">
+            <div class="screenshot-label">Tasks Tab</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<section class="featured-project">
+  <div class="featured-container">
+    <div class="featured-content">
+      <!-- image on the left for the new project -->
+      <div class="featured-screenshots" style="justify-content:flex-start">
+        <div class="phone-mockup">
+          <img src="heatmap.png" alt="Zomato Bangalore - Heatmap" class="screenshot large">
+          <div class="screenshot-label">Heatmap</div>
+        </div>
+      </div>
+
+      <div class="featured-info">
+        <div class="project-category">Data Analysis & ML</div>
+        <h2 class="project-title">Zomato Bangalore - EDA, Geospatial Insights, and Predictions</h2>
+        <p class="project-description">
+          This project performs Exploratory Data Analysis (EDA) and geospatial visualization on the Zomato Bangalore dataset to analyze
+          restaurant distribution, popularity, and customer preferences. Using GeoPandas, we mapped high-density restaurant areas and
+          customer hotspots. Additionally, an interactive heatmap was created and a predictive model was developed using Optuna to
+          estimate restaurant ratings.
+        </p>
+
+        <div class="project-features" style="margin-bottom:1rem">
+          <div class="feature-item"><i class="fas fa-map-marker-alt"></i><span>Geospatial clustering & hotspots</span></div>
+          <div class="feature-item"><i class="fas fa-chart-line"></i><span>EDA & trends analysis</span></div>
+          <div class="feature-item"><i class="fas fa-fire"></i><span>Interactive heatmap visualization</span></div>
+          <div class="feature-item"><i class="fas fa-robot"></i><span>Optuna-tuned predictive model</span></div>
+        </div>
+
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">GeoPandas</span>
+          <span class="tech-tag">Folium</span>
+          <span class="tech-tag">Optuna</span>
+          <span class="tech-tag">Pandas</span>
+        </div>
+
+        <div class="project-links" style="margin-top:0.75rem">
+          <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
+          <a href="#" class="project-link secondary"><i class="fas fa-external-link-alt"></i> Demo / Notebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- Other Projects Section -->
+  <section class="projects-section">
+    <h2 class="section-title">Other Projects</h2>
+    <p class="section-subtitle">Additional projects and side work</p>
+    
+    <div class="projects-grid">
+      <!-- Placeholder for future projects -->
+      <div class="project-card coming-soon" data-category="web">
+        <div class="project-image">
+          <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="project-content">
+          <div class="project-category">Coming Soon</div>
+          <h3 class="project-title">More Projects</h3>
+          <p class="project-description">
+            Additional projects and side work will be added here. 
+            Stay tuned for more exciting developments!
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">TBA</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link disabled">
+              <i class="fas fa-clock"></i>
+              Coming Soon
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- JavaScript -->
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Navbar subtle change on scroll (similar to home page)
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (!navbar) return;
+      if (window.scrollY > 20) {
+        navbar.style.boxShadow = '0 2px 6px rgba(16,24,40,0.04)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    // Mobile menu toggle (similar behavior to home page)
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    mobileMenuBtn && mobileMenuBtn.addEventListener('click', () => {
+      if(!navLinks) return;
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.gap = '0.5rem';
+      navLinks.style.padding = '0.5rem';
+      navLinks.style.background = 'var(--bg-secondary)';
+      navLinks.style.position = 'absolute';
+      navLinks.style.right = '1rem';
+      navLinks.style.top = '56px';
+      navLinks.style.borderRadius = '8px';
+      navLinks.style.boxShadow = '0 6px 18px rgba(16,24,40,0.06)';
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.project-card, .featured-project').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
+<!-- ...existing code... -->
