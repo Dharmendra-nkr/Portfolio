@@ -38,15 +38,19 @@
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
-  /* Dark mode variables (kept but toggle removed) */
-  [data-theme="dark"] {
-    --text-primary: #f9fafb;
-    --text-secondary: #d1d5db;
-    --text-muted: #9ca3af;
-    --bg-primary: #111827;
-    --bg-secondary: #1f2937;
-    --bg-card: #374151;
-    --border-color: #4b5563;
+  /* Dark mode variables */
+  html.dark-mode {
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #111827;
+    --border-color: #334155;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.25);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.35);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.35);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.45);
   }
 
   body {
@@ -66,9 +70,9 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255,255,255,0.98);
-    backdrop-filter: blur(10px);
+    background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
   }
 
   .nav-container {
@@ -114,13 +118,57 @@
     margin-left: 0.5rem;
   }
 
+  /* Theme & snowfall buttons */
+  .theme-toggle-btn,
+  .snowfall-btn {
+    background:none;
+    border:none;
+    color:var(--text-primary);
+    font-size:1.2rem;
+    cursor:pointer;
+    padding:0.5rem 0.75rem;
+    border-radius:10px;
+    transition:background 0.3s ease;
+  }
+  .theme-toggle-btn:hover,
+  .snowfall-btn:hover { background: rgba(37,99,235,0.08); }
+
+  /* Snowflake animation */
+  .snowflake{
+    position:fixed;
+    top:-10px;
+    z-index:999;
+    user-select:none;
+    cursor:default;
+    animation:snowfall linear forwards;
+    color:#fff;
+    text-shadow:0 0 5px rgba(255,255,255,0.8);
+  }
+
+  @keyframes snowfall{
+    to{
+      transform:translateY(100vh) translateX(var(--tx));
+      opacity:0;
+    }
+  }
+
+  /* Theme transition */
+  * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
   /* Featured Project Section */
   .featured-project {
-    padding: 4rem 2rem;
+    padding: 3rem 1.5rem;
     background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 50%, #fef3c7 100%);
-    border-radius: 2rem;
-    margin: 2rem;
+    border-radius: 1.5rem;
+    margin: 1.5rem;
     box-shadow: var(--shadow-lg);
+  }
+
+  /* Dark mode featured gradient */
+  html.dark-mode .featured-project {
+    background: linear-gradient(135deg, #0b1221 0%, #111827 45%, #1e293b 100%);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
   }
 
   .featured-container {
@@ -131,15 +179,15 @@
   .featured-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 3rem;
     align-items: center;
   }
 
-  .featured-info { padding: 2rem 0; }
+  .featured-info { padding: 1.25rem 0; }
 
-  .featured-info .project-category { color: var(--accent-color); font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .featured-info .project-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); line-height: 1.2; }
-  .featured-info .project-description { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6; }
+  .featured-info .project-category { color: var(--accent-color); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .featured-info .project-title { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.1rem; color: var(--text-primary); line-height: 1.2; }
+  .featured-info .project-description { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 1.4rem; line-height: 1.55; }
 
   .project-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
   .feature-item { display:flex; align-items:center; gap:0.75rem; color:var(--text-secondary); font-weight:500; }
@@ -214,8 +262,62 @@
       <button class="mobile-menu-btn" aria-label="Toggle menu">
         <i class="fas fa-bars"></i>
       </button>
+
+      <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark Mode" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <button class="snowfall-btn" id="snowfall-toggle" title="Toggle Snowfall" aria-label="Toggle snowfall">
+        <i class="fas fa-snowflake"></i>
+      </button>
     </div>
   </nav>
+
+
+  <!-- Warehouse RL Featured Project (moved first) -->
+  <section class="featured-project">
+    <div class="featured-container">
+      <div class="featured-content">
+        <!-- Image on the left -->
+        <div class="featured-screenshots" style="justify-content:flex-start">
+          <div class="phone-mockup">
+            <img src="{{ url_for('static', filename='images/RL_ss.png') }}" alt="Warehouse Agent Using RL" class="screenshot large">
+            <div class="screenshot-label">Agent Visualization</div>
+          </div>
+        </div>
+
+        <div class="featured-info">
+          <div class="project-category">Reinforcement Learning & AI</div>
+          <h2 class="project-title">Warehouse Agent using Reinforcement Learning</h2>
+          <p class="project-description">
+            An intelligent warehouse agent powered by Reinforcement Learning that optimizes item picking and placement operations. 
+            The agent learns to navigate complex warehouse layouts, make efficient decisions, and maximize performance through continuous learning. 
+            This project demonstrates advanced RL techniques applied to real-world logistics automation challenges.
+          </p>
+
+          <div class="project-features" style="margin-bottom:1rem">
+            <div class="feature-item"><i class="fas fa-robot"></i><span>RL-based decision making</span></div>
+            <div class="feature-item"><i class="fas fa-chart-bar"></i><span>Performance optimization</span></div>
+            <div class="feature-item"><i class="fas fa-cube"></i><span>Warehouse environment simulation</span></div>
+            <div class="feature-item"><i class="fas fa-brain"></i><span>Deep learning policy networks</span></div>
+          </div>
+
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Reinforcement Learning</span>
+            <span class="tech-tag">Deep Q-Learning</span>
+            <span class="tech-tag">TensorFlow/PyTorch</span>
+            <span class="tech-tag">OpenAI Gym</span>
+          </div>
+
+          <div class="project-links" style="margin-top:0.75rem">
+            <a href="https://github.com/Dharmendra-nkr/Warehouse_agent_using_RL" class="project-link"><i class="fab fa-github"></i> View Code</a>
+            <a href="#" class="project-link secondary"><i class="fas fa-external-link-alt"></i> Demo / Paper</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!-- Featured Project Section -->
@@ -326,6 +428,7 @@
     </div>
   </div>
 </section>
+
   <!-- Other Projects Section -->
   <section class="projects-section">
     <h2 class="section-title">Other Projects</h2>
@@ -380,6 +483,87 @@
         navbar.style.boxShadow = '0 2px 6px rgba(16,24,40,0.04)';
       } else {
         navbar.style.boxShadow = 'none';
+      }
+    });
+
+    // Snowfall effect
+    let isSnowing = false;
+    const snowfallBtn = document.getElementById('snowfall-toggle');
+
+    function createSnowflake(){
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.textContent = '❄';
+
+      const size = Math.random() * 20 + 10;
+      const duration = Math.random() * 5 + 8;
+      const delay = Math.random() * 0.5;
+      const leftPos = Math.random() * window.innerWidth;
+      const drift = (Math.random() - 0.5) * 100;
+
+      snowflake.style.left = leftPos + 'px';
+      snowflake.style.fontSize = size + 'px';
+      snowflake.style.opacity = Math.random() * 0.5 + 0.5;
+      snowflake.style.setProperty('--tx', drift + 'px');
+      snowflake.style.animation = `snowfall ${duration}s linear ${delay}s forwards`;
+
+      document.body.appendChild(snowflake);
+
+      setTimeout(() => snowflake.remove(), (duration + delay) * 1000);
+    }
+
+    function startSnowfall(){
+      isSnowing = true;
+      snowfallBtn.style.color = 'var(--secondary-color)';
+      snowfallBtn.querySelector('i').style.animation = 'spin 2s linear infinite';
+
+      const snowInterval = setInterval(() => {
+        if(!isSnowing) return clearInterval(snowInterval);
+        for(let i = 0; i < 3; i++){
+          setTimeout(() => createSnowflake(), Math.random() * 300);
+        }
+      }, 400);
+    }
+
+    function stopSnowfall(){
+      isSnowing = false;
+      snowfallBtn.style.color = 'var(--text-primary)';
+      snowfallBtn.querySelector('i').style.animation = 'none';
+    }
+
+    snowfallBtn && snowfallBtn.addEventListener('click', () => {
+      isSnowing ? stopSnowfall() : startSnowfall();
+    });
+
+    // Add spin animation for button
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
+
+    // Theme toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if(savedTheme === 'dark'){
+      htmlElement.classList.add('dark-mode');
+      const icon = themeToggleBtn.querySelector('i');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+
+    themeToggleBtn && themeToggleBtn.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark-mode');
+      const isDarkMode = htmlElement.classList.contains('dark-mode');
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+
+      const icon = themeToggleBtn.querySelector('i');
+      if(isDarkMode){
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
       }
     });
 
