@@ -23,12 +23,12 @@
 
   /* Dark mode */
   html.dark-mode{
-    --bg: #0f172a;
-    --card: #1e293b;
-    --text: #f1f5f9;
-    --muted: #94a3b8;
-    --border: #334155;
-    --shadow-subtle: 0 2px 6px rgba(0,0,0,0.2);
+    --bg: #0b0b0b;
+    --card: #131313;
+    --text: #f5f5f5;
+    --muted: #cfcfcf;
+    --border: #1f1f1f;
+    --shadow-subtle: 0 2px 8px rgba(0,0,0,0.35);
   }
 
   /* Reset */
@@ -76,19 +76,52 @@
 
   /* Social (moved under hero) */
   .social-icons{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
-  .social-link{display:flex;gap:0.5rem;align-items:center;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border);text-decoration:none;color:var(--text);background:transparent;font-weight:600}
+  .social-link{display:flex;gap:0.5rem;align-items:center;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border);text-decoration:none;color:var(--text);background:transparent;font-weight:600;transition:background 0.25s ease,color 0.25s ease,transform 0.25s ease,box-shadow 0.25s ease}
+  .social-link:hover{transform:translateY(-1px);box-shadow:var(--shadow-subtle)}
+  .social-link.github{color:#181717;border-color:#181717}
+  .social-link.github:hover{background:#181717;color:#fff}
+  html.dark-mode .social-link.github{color:#f5f5f5;border-color:#f5f5f5}
+  html.dark-mode .social-link.github:hover{background:#f5f5f5;color:#0b0b0b}
+  .social-link.linkedin{color:#0a66c2;border-color:#0a66c2}
+  .social-link.linkedin:hover{background:#0a66c2;color:#fff}
+  .social-link.kaggle{color:#20beff;border-color:#20beff}
+  .social-link.kaggle:hover{background:#20beff;color:#0b0b0b}
 
   /* Sections */
-  section{padding:2.5rem 1rem}
+  section{padding:3rem 1rem}
   .about, .projects, .contact{max-width:1100px;margin:0 auto}
-  .section-title{font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:0.5rem}
-  .section-subtitle{color:var(--muted);margin-bottom:1rem}
+  .section-title{font-size:2rem;font-weight:700;color:var(--text);margin-bottom:0.75rem}
+  .section-subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.05rem;line-height:1.6}
 
-  /* About layout - left text + right skills (2x3) */
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start}
-  .about-text p{color:var(--muted);line-height:1.6}
-  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem}
-  .skill-item{display:flex;gap:0.75rem;align-items:center;padding:0.75rem;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-weight:500}
+  /* About layout - single column for text, full-width skills */
+  .about-intro{max-width:900px;margin:0 auto 2.5rem}
+  .about-text p{color:var(--muted);line-height:1.7;font-size:1.05rem}
+  .skills-section{margin-bottom:2.5rem}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .skill-item{display:flex;gap:0.75rem;align-items:flex-start;padding:1rem;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-subtle);transition:transform 0.2s ease,box-shadow 0.2s ease}
+  .skill-item:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(0,0,0,0.1)}
+  .skill-title{font-weight:700;margin-bottom:0.3rem;color:var(--text);font-size:1rem}
+  .skill-meta{color:var(--muted);font-size:0.875rem;line-height:1.5}
+
+  /* Tech stack and CGPA row */
+  .bottom-row{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-top:2rem}
+  .tech-stack{padding:1.25rem;background:var(--card);border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow-subtle)}
+  .stack-chips{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:0.75rem}
+  .stack-chip{padding:0.55rem 0.85rem;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font-weight:600;box-shadow:var(--shadow-subtle);transition:transform 0.2s ease,box-shadow 0.2s ease}
+  .stack-chip:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.15)}
+  .stack-chip.lang{border-color:#3b82f6;color:#3b82f6}
+  .stack-chip.ai{border-color:#10b981;color:#10b981}
+  .stack-chip.data{border-color:#8b5cf6;color:#8b5cf6}
+  .stack-chip.framework{border-color:#f59e0b;color:#f59e0b}
+  .stack-chip.database{border-color:#ef4444;color:#ef4444}
+  .stack-chip.tools{border-color:#06b6d4;color:#06b6d4}
+
+  /* CGPA Display */
+  .cgpa-section{padding:1.25rem;background:var(--card);border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow-subtle);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%}
+  .cgpa-icon{font-size:2.5rem;color:var(--accent);margin-bottom:0.75rem}
+  .cgpa-content{}
+  .cgpa-label{color:var(--muted);font-weight:600;font-size:0.875rem;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.5px}
+  .cgpa-value{font-size:2.25rem;font-weight:700;color:var(--text)}
 
   /* Projects (kept in CSS but removed from markup on homepage) */
   .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
@@ -159,12 +192,14 @@
     .hero-inner{grid-template-columns:1fr;text-align:left}
     .profile-image{width:220px;height:220px;margin:0 auto}
     .hero{padding-top:5.5rem}
-    .about-grid{grid-template-columns:1fr}
-    .skills-grid{grid-template-columns:repeat(2,1fr)}
+    .skills-grid{grid-template-columns:1fr}
+    .bottom-row{grid-template-columns:1fr}
   }
   @media (max-width:420px){
     .hero-title{font-size:1.5rem}
-    .skills-grid{grid-template-columns:1fr}
+  }
+  @media (min-width:721px) and (max-width:1000px){
+    .skills-grid{grid-template-columns:repeat(2,1fr)}
   }
 </style>
 </head>
@@ -172,7 +207,7 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="logo">Dharmendra N K R</div>
+      <div class="logo">NKRD</div>
 
       <ul class="nav-links" style="margin-left:auto">
         <li><a href="{{ url_for('home') }}#home">Home</a></li>
@@ -203,7 +238,7 @@
         <div class="greeting">Hello, I'm</div>
         <h1 class="hero-title">Dharmendra N K R</h1>
         <p class="hero-subtitle">
-          Full-Stack Developer and UI/UX enthusiast focused on clean, accessible web experiences.
+          AI/ML-focused full-stack dev crafting agentic automations, data-driven apps, and clean, responsive experiences.
         </p>
         <div class="hero-buttons">
           <a href="{{ url_for('projects') }}" class="btn btn-primary"><i class="fas fa-code"></i> View Work</a>
@@ -212,9 +247,9 @@
 
         <!-- Social buttons moved here (below hero buttons) -->
         <div class="social-icons" aria-label="social links">
-          <a href="https://github.com/Dharmendra-nkr" target="_blank" class="social-link"><i class="fab fa-github"></i> GitHub</a>
-          <a href="https://www.linkedin.com/in/dharmendra-nkr" target="_blank" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          <a href="https://www.kaggle.com/dharmendrankr" target="_blank" class="social-link"><i class="fab fa-kaggle"></i> Kaggle</a>
+          <a href="https://github.com/Dharmendra-nkr" target="_blank" class="social-link github"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/dharmendra-nkr" target="_blank" class="social-link linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="https://www.kaggle.com/dharmendrankr" target="_blank" class="social-link kaggle"><i class="fab fa-kaggle"></i> Kaggle</a>
         </div>
       </div>
 
@@ -224,26 +259,105 @@
     </div>
   </section>
 
-  <!-- About Section (updated: description + 2x3 skills grid) -->
+  <!-- About Section -->
   <section id="about" class="about">
     <div class="about">
       <h2 class="section-title">About Me</h2>
-      <p class="section-subtitle">I build simple and usable interfaces backed by solid code.</p>
-      <div class="about-grid">
+      <p class="section-subtitle">M.Sc Data Science @ Amrita Vishwa Vidyapeetham, building AI/ML solutions, web/app products, and data engineering pipelines.</p>
+      
+      <div class="about-intro">
         <div class="about-text">
           <p>
-            I'm a full-stack developer with experience building web and mobile applications. I prefer minimal, clear interfaces and maintainable code.
+            I'm currently pursuing my M.Sc in Data Science at Amrita Vishwa Vidyapeetham. I love turning AI/ML ideas into real solutions—automation, applied modeling, and agentic systems—while also crafting web and mobile experiences that feel fast and clear. I enjoy end-to-end builds: data engineering pipelines, MLOps-friendly deployment, analytics dashboards, and polished UIs that make the outputs usable.
           </p>
         </div>
+      </div>
 
-        <!-- Skills grid: 2 columns x 3 rows (placeholders you can edit) -->
+      <!-- Skills Section -->
+      <div class="skills-section">
+        <h3 class="skill-title" style="margin-bottom:1rem;font-size:1.25rem">Core Skills</h3>
         <div class="skills-grid" aria-label="skills">
-          <div class="skill-item"><i class="fas fa-code" style="color:var(--accent)"></i> Skill One</div>
-          <div class="skill-item"><i class="fas fa-lightbulb" style="color:var(--accent)"></i> Skill Two</div>
-          <div class="skill-item"><i class="fab fa-js-square" style="color:var(--accent)"></i> Skill Three</div>
-          <div class="skill-item"><i class="fab fa-react" style="color:var(--accent)"></i> Skill Four</div>
-          <div class="skill-item"><i class="fab fa-node-js" style="color:var(--accent)"></i> Skill Five</div>
-          <div class="skill-item"><i class="fas fa-database" style="color:var(--accent)"></i> Skill Six</div>
+          <div class="skill-item">
+            <i class="fas fa-brain" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i>
+            <div>
+              <div class="skill-title">AI &amp; ML</div>
+              <div class="skill-meta">Python, TensorFlow, PyTorch, scikit-learn, Keras</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-mobile-screen" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i>
+            <div>
+              <div class="skill-title">App Development</div>
+              <div class="skill-meta">Flutter, Dart, Firebase, clean UI delivery</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-database" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i>
+            <div>
+              <div class="skill-title">Data Engineering</div>
+              <div class="skill-meta">PostgreSQL, MySQL, MongoDB, data pipelines</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-globe" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i>
+            <div>
+              <div class="skill-title">Web Development</div>
+              <div class="skill-meta">JavaScript, Flask, responsive and accessible UX</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-chart-line" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i>
+            <div>
+              <div class="skill-title">Data Analyst</div>
+              <div class="skill-meta">Pandas, NumPy, Plotly, Matplotlib, SQL</div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-robot" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i>
+            <div>
+              <div class="skill-title">Automation</div>
+              <div class="skill-meta">n8n, UiPath, workflow orchestration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Stack & CGPA Row -->
+      <div class="bottom-row">
+        <div class="tech-stack" aria-label="tech stack">
+          <h3 class="skill-title" style="margin-bottom:0.5rem;font-size:1.1rem">Tech Stack</h3>
+        <div class="stack-chips">
+          <div class="stack-chip lang">Python</div>
+          <div class="stack-chip lang">JavaScript</div>
+          <div class="stack-chip lang">Dart</div>
+          <div class="stack-chip lang">Java</div>
+          <div class="stack-chip lang">R</div>
+          <div class="stack-chip ai">TensorFlow</div>
+          <div class="stack-chip ai">PyTorch</div>
+          <div class="stack-chip ai">Keras</div>
+          <div class="stack-chip ai">scikit-learn</div>
+          <div class="stack-chip data">Pandas</div>
+          <div class="stack-chip data">NumPy</div>
+          <div class="stack-chip data">Plotly</div>
+          <div class="stack-chip framework">Flutter</div>
+          <div class="stack-chip framework">Flask</div>
+          <div class="stack-chip framework">Firebase</div>
+          <div class="stack-chip database">MongoDB</div>
+          <div class="stack-chip database">PostgreSQL</div>
+          <div class="stack-chip database">MySQL</div>
+          <div class="stack-chip tools">Git/GitHub</div>
+        </div>
+      </div>
+
+        <!-- CGPA Section -->
+        <div class="cgpa-section" aria-label="academic performance">
+          <div class="cgpa-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="cgpa-content">
+            <div class="cgpa-label">Current CGPA</div>
+            <div class="cgpa-value">8.64</div>
+          </div>
         </div>
       </div>
     </div>
