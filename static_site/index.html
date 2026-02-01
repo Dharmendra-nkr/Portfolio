@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dharmendra N K R - Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --card: #fbfdff;
+    --text: #0f172a;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --border: #eef2f6;
+    --radius: 12px;
+    --gap: 1rem;
+    --shadow-subtle: 0 2px 6px rgba(16,24,40,0.04);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  html.dark-mode{
+    --bg: #0b0b0b;
+    --card: #131313;
+    --text: #f5f5f5;
+    --muted: #cfcfcf;
+    --border: #1f1f1f;
+    --shadow-subtle: 0 2px 8px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;background:var(--bg);color:var(--text)}
+  body{line-height:1.5}
+  .navbar{position:fixed;left:0;right:0;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:1000}
+  .nav-container{max-width:1100px;margin:0 auto;padding:0.75rem 1rem;display:flex;align-items:center;gap:1rem}
+  .logo{font-weight:700;font-size:1.125rem;color:var(--text)}
+  .nav-links{display:flex;list-style:none;gap:1rem;margin-left:auto}
+  .nav-links a{color:var(--text);text-decoration:none;padding:0.5rem 0.75rem;border-radius:8px;font-weight:500}
+  .nav-links a:hover{background:rgba(37,99,235,0.08);color:var(--accent)}
+  .mobile-menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.25rem;cursor:pointer}
+  .hero{min-height:calc(100vh - 72px);padding:5rem 1rem 3rem;display:flex;align-items:center;justify-content:center}
+  .hero-inner{max-width:1100px;width:100%;display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:center}
+  .hero-text .greeting{color:var(--muted);font-weight:600;margin-bottom:0.5rem}
+  .hero-title{font-size:2.5rem;font-weight:700;margin-bottom:0.75rem;color:var(--text)}
+  .hero-subtitle{color:var(--muted);margin-bottom:1.25rem;max-width:55ch}
+  .hero-buttons{display:flex;gap:0.75rem}
+  .btn{padding:0.6rem 1rem;border-radius:8px;font-weight:600;border:1px solid transparent;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{opacity:0.95}
+  .btn-secondary{background:transparent;color:var(--accent);border-color:var(--border)}
+  .profile-image{width:380px;height:380px;border-radius:50%;object-fit:cover;border:1px solid var(--border);background:var(--card)}
+  .social-icons{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+  .social-link{display:flex;gap:0.5rem;align-items:center;padding:0.5rem 0.75rem;border-radius:8px;border:1px solid var(--border);text-decoration:none;color:var(--text);background:transparent;font-weight:600;transition:background 0.25s ease,color 0.25s ease,transform 0.25s ease,box-shadow 0.25s ease}
+  .social-link:hover{transform:translateY(-1px);box-shadow:var(--shadow-subtle)}
+  .social-link.github{color:#181717;border-color:#181717}
+  .social-link.github:hover{background:#181717;color:#fff}
+  html.dark-mode .social-link.github{color:#f5f5f5;border-color:#f5f5f5}
+  html.dark-mode .social-link.github:hover{background:#f5f5f5;color:#0b0b0b}
+  .social-link.linkedin{color:#0a66c2;border-color:#0a66c2}
+  .social-link.linkedin:hover{background:#0a66c2;color:#fff}
+  .social-link.kaggle{color:#20beff;border-color:#20beff}
+  .social-link.kaggle:hover{background:#20beff;color:#0b0b0b}
+  section{padding:3rem 1rem}
+  .about, .projects, .contact{max-width:1100px;margin:0 auto}
+  .section-title{font-size:2rem;font-weight:700;color:var(--text);margin-bottom:0.75rem}
+  .section-subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.05rem;line-height:1.6}
+  .about-intro{max-width:900px;margin:0 auto 2.5rem}
+  .about-text p{color:var(--muted);line-height:1.7;font-size:1.05rem}
+  .skills-section{margin-bottom:2.5rem}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .skill-item{display:flex;gap:0.75rem;align-items:flex-start;padding:1rem;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-subtle);transition:transform 0.2s ease,box-shadow 0.2s ease}
+  .skill-item:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(0,0,0,0.1)}
+  .skill-title{font-weight:700;margin-bottom:0.3rem;color:var(--text);font-size:1rem}
+  .skill-meta{color:var(--muted);font-size:0.875rem;line-height:1.5}
+  .bottom-row{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-top:2rem}
+  .tech-stack{padding:1.25rem;background:var(--card);border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow-subtle)}
+  .stack-chips{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:0.75rem}
+  .stack-chip{padding:0.55rem 0.85rem;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font-weight:600;box-shadow:var(--shadow-subtle);transition:transform 0.2s ease,box-shadow 0.2s ease}
+  .stack-chip:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.15)}
+  .stack-chip.lang{border-color:#3b82f6;color:#3b82f6}
+  .stack-chip.ai{border-color:#10b981;color:#10b981}
+  .stack-chip.data{border-color:#8b5cf6;color:#8b5cf6}
+  .stack-chip.framework{border-color:#f59e0b;color:#f59e0b}
+  .stack-chip.database{border-color:#ef4444;color:#ef4444}
+  .stack-chip.tools{border-color:#06b6d4;color:#06b6d4}
+  .cgpa-section{padding:1.25rem;background:var(--card);border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow-subtle);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%}
+  .cgpa-icon{font-size:2.5rem;color:var(--accent);margin-bottom:0.75rem}
+  .cgpa-label{color:var(--muted);font-weight:600;font-size:0.875rem;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.5px}
+  .cgpa-value{font-size:2.25rem;font-weight:700;color:var(--text)}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+  .contact-item{padding:1rem;border-radius:10px;background:var(--card);border:1px solid var(--border);text-align:center}
+  .contact-icon{font-size:1.25rem;color:var(--accent);margin-bottom:0.5rem}
+  .footer{padding:2rem 1rem;text-align:center;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .fade{animation:fadeInUp 0.6s ease both}
+  .snowfall-btn,.theme-toggle-btn{background:none;border:none;color:var(--text);font-size:1.25rem;cursor:pointer;padding:0.5rem 0.75rem;border-radius:8px;transition:background 0.3s ease}
+  .snowfall-btn:hover,.theme-toggle-btn:hover{background:rgba(37,99,235,0.08)}
+  .snowflake{position:fixed;top:-10px;z-index:999;user-select:none;cursor:default;animation:snowfall linear forwards;color:#fff;text-shadow:0 0 5px rgba(255,255,255,0.8)}
+  @keyframes snowfall{to{transform:translateY(100vh) translateX(var(--tx));opacity:0}}
+  * {transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease}
+  @media (max-width:900px){.hero-inner{grid-template-columns:1fr 300px}.profile-image{width:300px;height:300px}}
+  @media (max-width:720px){.nav-links{display:none}.mobile-menu-btn{display:block;margin-left:auto}.hero-inner{grid-template-columns:1fr;text-align:left}.profile-image{width:220px;height:220px;margin:0 auto}.hero{padding-top:5.5rem}.skills-grid{grid-template-columns:1fr}.bottom-row{grid-template-columns:1fr}}
+  @media (max-width:420px){.hero-title{font-size:1.5rem}}
+  @media (min-width:721px) and (max-width:1000px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">Dharmendra N K R</div>
+      <ul class="nav-links" style="margin-left:auto">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="./static/resume.pdf" target="_blank">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-btn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+      <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark Mode" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      <button class="snowfall-btn" id="snowfall-toggle" title="Toggle Snowfall" aria-label="Toggle snowfall"><i class="fas fa-snowflake"></i></button>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="hero-inner fade">
+      <div class="hero-text">
+        <div class="greeting">Hello, I'm</div>
+        <h1 class="hero-title">Dharmendra N K R</h1>
+        <p class="hero-subtitle">AI/ML-focused full-stack dev crafting agentic automations, data-driven apps, and clean, responsive experiences.</p>
+        <div class="hero-buttons">
+          <a href="projects.html" class="btn btn-primary"><i class="fas fa-code"></i> View Work</a>
+          <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+        <div class="social-icons" aria-label="social links">
+          <a href="https://github.com/Dharmendra-nkr" target="_blank" class="social-link github"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/dharmendra-nkr" target="_blank" class="social-link linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="https://www.kaggle.com/dharmendrankr" target="_blank" class="social-link kaggle"><i class="fab fa-kaggle"></i> Kaggle</a>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center">
+        <img src="./static/pp.jpeg" alt="Dharmendra N K R" class="profile-image">
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="about">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">M.Sc Data Science @ Amrita Vishwa Vidyapeetham, building AI/ML solutions, web/app products, and data engineering pipelines.</p>
+      <div class="about-intro">
+        <div class="about-text">
+          <p>I'm currently pursuing my M.Sc in Data Science at Amrita Vishwa Vidyapeetham. I love turning AI/ML ideas into real solutions—automation, applied modeling, and agentic systems—while also crafting web and mobile experiences that feel fast and clear. I enjoy end-to-end builds: data engineering pipelines, MLOps-friendly deployment, analytics dashboards, and polished UIs that make the outputs usable.</p>
+        </div>
+      </div>
+      <div class="skills-section">
+        <h3 class="skill-title" style="margin-bottom:1rem;font-size:1.25rem">Core Skills</h3>
+        <div class="skills-grid" aria-label="skills">
+          <div class="skill-item"><i class="fas fa-brain" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i><div><div class="skill-title">AI &amp; ML</div><div class="skill-meta">Python, TensorFlow, PyTorch, scikit-learn, Keras</div></div></div>
+          <div class="skill-item"><i class="fas fa-mobile-screen" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i><div><div class="skill-title">App Development</div><div class="skill-meta">Flutter, Dart, Firebase, clean UI delivery</div></div></div>
+          <div class="skill-item"><i class="fas fa-database" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i><div><div class="skill-title">Data Engineering</div><div class="skill-meta">PostgreSQL, MySQL, MongoDB, data pipelines</div></div></div>
+          <div class="skill-item"><i class="fas fa-globe" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i><div><div class="skill-title">Web Development</div><div class="skill-meta">JavaScript, Flask, responsive and accessible UX</div></div></div>
+          <div class="skill-item"><i class="fas fa-chart-line" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i><div><div class="skill-title">Data Analyst</div><div class="skill-meta">Pandas, NumPy, Plotly, Matplotlib, SQL</div></div></div>
+          <div class="skill-item"><i class="fas fa-robot" style="color:var(--accent);font-size:1.2rem;margin-top:0.15rem"></i><div><div class="skill-title">Automation</div><div class="skill-meta">n8n, UiPath, workflow orchestration</div></div></div>
+        </div>
+      </div>
+      <div class="bottom-row">
+        <div class="tech-stack" aria-label="tech stack">
+          <h3 class="skill-title" style="margin-bottom:0.5rem;font-size:1.1rem">Tech Stack</h3>
+          <div class="stack-chips">
+            <div class="stack-chip lang">Python</div><div class="stack-chip lang">JavaScript</div><div class="stack-chip lang">Dart</div><div class="stack-chip lang">Java</div><div class="stack-chip lang">R</div>
+            <div class="stack-chip ai">TensorFlow</div><div class="stack-chip ai">PyTorch</div><div class="stack-chip ai">Keras</div><div class="stack-chip ai">scikit-learn</div>
+            <div class="stack-chip data">Pandas</div><div class="stack-chip data">NumPy</div><div class="stack-chip data">Plotly</div>
+            <div class="stack-chip framework">Flutter</div><div class="stack-chip framework">Flask</div><div class="stack-chip framework">Firebase</div>
+            <div class="stack-chip database">MongoDB</div><div class="stack-chip database">PostgreSQL</div><div class="stack-chip database">MySQL</div>
+            <div class="stack-chip tools">Git/GitHub</div>
+          </div>
+        </div>
+        <div class="cgpa-section" aria-label="academic performance">
+          <div class="cgpa-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="cgpa-content"><div class="cgpa-label">Current CGPA</div><div class="cgpa-value">8.64</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-subtitle">Get in touch for collaborations or freelance work.</p>
+      <div class="contact-grid" style="margin-top:1rem">
+        <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div style="color:var(--text)">nkrdharmendra@gmail.com</div></div>
+        <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone"></i></div><div style="color:var(--text)">+91 9677964312</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><p>&copy; 2024 Dharmendra N K R. All rights reserved.</p></footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e){
+      const target = document.querySelector(this.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+  });
+  const mobileMenuBtn=document.querySelector('.mobile-menu-btn');
+  const navLinks=document.querySelector('.nav-links');
+  mobileMenuBtn&&mobileMenuBtn.addEventListener('click',()=>{
+    if(!navLinks)return;
+    navLinks.style.display=navLinks.style.display==='flex'?'none':'flex';
+    navLinks.style.flexDirection='column';
+    navLinks.style.gap='0.5rem';
+    navLinks.style.padding='0.5rem';
+    navLinks.style.background='var(--bg)';
+    navLinks.style.position='absolute';
+    navLinks.style.right='1rem';
+    navLinks.style.top='56px';
+    navLinks.style.borderRadius='8px';
+    navLinks.style.boxShadow='var(--shadow-subtle)';
+  });
+  window.addEventListener('scroll',()=>{
+    const navbar=document.querySelector('.navbar');
+    if(!navbar)return;
+    navbar.style.boxShadow=window.scrollY>20?'0 2px 6px rgba(16,24,40,0.04)':'none';
+  });
+  let isSnowing=false;
+  const snowfallBtn=document.getElementById('snowfall-toggle');
+  function createSnowflake(){
+    const snowflake=document.createElement('div');
+    snowflake.className='snowflake';
+    snowflake.textContent='❄';
+    const size=Math.random()*20+10;
+    const duration=Math.random()*5+8;
+    const delay=Math.random()*0.5;
+    const leftPos=Math.random()*window.innerWidth;
+    const drift=(Math.random()-0.5)*100;
+    snowflake.style.left=leftPos+'px';
+    snowflake.style.fontSize=size+'px';
+    snowflake.style.opacity=Math.random()*0.5+0.5;
+    snowflake.style.setProperty('--tx',drift+'px');
+    snowflake.style.animation=`snowfall ${duration}s linear ${delay}s forwards`;
+    document.body.appendChild(snowflake);
+    setTimeout(()=>snowflake.remove(),(duration+delay)*1000);
+  }
+  function startSnowfall(){
+    isSnowing=true;
+    snowfallBtn.style.color='var(--accent)';
+    snowfallBtn.querySelector('i').style.animation='spin 2s linear infinite';
+    const snowInterval=setInterval(()=>{
+      if(!isSnowing) return clearInterval(snowInterval);
+      for(let i=0;i<3;i++) setTimeout(()=>createSnowflake(),Math.random()*300);
+    },400);
+  }
+  function stopSnowfall(){
+    isSnowing=false;
+    snowfallBtn.style.color='var(--text)';
+    snowfallBtn.querySelector('i').style.animation='none';
+  }
+  snowfallBtn&&snowfallBtn.addEventListener('click',()=>{isSnowing?stopSnowfall():startSnowfall();});
+  const style=document.createElement('style');
+  style.textContent='@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+  document.head.appendChild(style);
+  const themeToggleBtn=document.getElementById('theme-toggle');
+  const htmlElement=document.documentElement;
+  const savedTheme=localStorage.getItem('theme')||'light';
+  if(savedTheme==='dark'){
+    htmlElement.classList.add('dark-mode');
+    themeToggleBtn.querySelector('i').classList.remove('fa-moon');
+    themeToggleBtn.querySelector('i').classList.add('fa-sun');
+  }
+  themeToggleBtn&&themeToggleBtn.addEventListener('click',()=>{
+    htmlElement.classList.toggle('dark-mode');
+    const isDark=htmlElement.classList.contains('dark-mode');
+    localStorage.setItem('theme',isDark?'dark':'light');
+    const icon=themeToggleBtn.querySelector('i');
+    if(isDark){icon.classList.remove('fa-moon');icon.classList.add('fa-sun');}
+    else{icon.classList.remove('fa-sun');icon.classList.add('fa-moon');}
+  });
+</script>
+</body>
+</html>
