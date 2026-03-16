@@ -58,6 +58,7 @@
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    padding-top: 72px;
   }
 
   /* Smooth scrolling */
@@ -95,6 +96,20 @@
     list-style: none;
     gap: 1.5rem;
     margin-left: auto;
+  }
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.65rem;
+    background: var(--bg-secondary);
+    position: absolute;
+    right: 0;
+    top: 56px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    min-width: min(78vw, 300px);
   }
 
   .nav-links a {
@@ -194,20 +209,56 @@
   .feature-item i { color: var(--accent-color); font-size:1.1rem; }
 
   .featured-screenshots { display:flex; gap:1.5rem; justify-content:center; align-items:flex-start; }
+  .featured-screenshots.wide-gallery { justify-content:flex-start; }
   .phone-mockup { position:relative; max-width:200px; transition:transform 0.3s ease; }
+  .wide-mockup { position:relative; width:min(100%, 560px); max-width:560px; flex:1; }
+  .preview-frame {
+    position:relative;
+    width:100%;
+    min-height:340px;
+    border-radius:26px;
+    overflow:hidden;
+    border:3px solid var(--border-color);
+    box-shadow:var(--shadow-xl);
+    background:linear-gradient(135deg, #1d4ed8 0%, #0f172a 100%);
+  }
+  .preview-frame img {
+    width:100%;
+    height:100%;
+    min-height:340px;
+    object-fit:cover;
+    display:block;
+    position:relative;
+    z-index:2;
+  }
+  .preview-frame .preview-fallback {
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:4rem;
+    color:white;
+    z-index:1;
+  }
+  .preview-frame.ai { background:linear-gradient(135deg, #1d4ed8 0%, #0f172a 100%); }
+  .preview-frame.bio { background:linear-gradient(135deg, #065f46 0%, #0f172a 100%); }
+  .preview-frame.finance { background:linear-gradient(135deg, #7c2d12 0%, #0f172a 100%); }
   .screenshot { width:100%; height:auto; border-radius:20px; box-shadow:var(--shadow-xl); border:3px solid var(--border-color); transition:all 0.3s ease; }
   .screenshot:hover { border-color: var(--primary-color); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
   .screenshot-label { text-align:center; margin-top:1rem; color:var(--text-secondary); font-weight:500; font-size:0.875rem; }
-  .screenshot.large { padding: auto; display:block; width:300%; height:auto; border-radius:26px;transform: translateX(-6%);; } /* larger image styling */
+  .screenshot.large { display:block; width:min(100%, 760px); height:auto; border-radius:26px; transform:none; } /* larger image styling */
   /* Projects Grid */
   .projects-section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px,1fr)); gap: 2rem; margin-top: 2rem; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; margin-top: 2rem; }
 
   .project-card { background: var(--bg-card); border-radius: 1.5rem; overflow: hidden; border: 2px solid var(--blue-light); transition: all 0.3s ease; position: relative; box-shadow: var(--shadow-sm); }
   .project-card:hover { transform: translateY(-8px); border-color: var(--primary-color); box-shadow: var(--shadow-xl); }
 
   .project-image { width:100%; height:250px; background: var(--gradient-primary); display:flex; align-items:center; justify-content:center; font-size:4rem; color:white; position:relative; overflow:hidden; border-radius:1rem 1rem 0 0; }
   .project-image::before { content:''; position:absolute; inset:0; background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); }
+  .project-image img { width:100%; height:100%; object-fit:cover; position:relative; z-index:2; }
+  .project-image .fallback-icon { position:relative; z-index:3; }
 
   .project-content { padding:2rem; }
   .project-category { color:var(--accent-color); font-size:0.875rem; font-weight:600; text-transform:uppercase; margin-bottom:0.5rem; }
@@ -217,7 +268,7 @@
   .project-tech { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.5rem; }
   .tech-tag { background:var(--bg-secondary); color:var(--text-secondary); padding:0.25rem 0.75rem; border-radius:1rem; font-size:0.875rem; border:1px solid var(--border-color); }
 
-  .project-links { display:flex; gap:1rem; }
+  .project-links { display:flex; gap:1rem; flex-wrap:wrap; }
   .project-link { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.5rem; background:var(--gradient-primary); color:white; text-decoration:none; border-radius:0.75rem; font-weight:600; transition:all 0.3s ease; box-shadow:var(--shadow-sm); }
   .project-link:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); background:var(--gradient-secondary); }
   .project-link.secondary { background:var(--gradient-accent); color:var(--text-primary); border:none; }
@@ -230,18 +281,27 @@
 
   /* Responsive */
   @media (max-width: 768px) {
+    .nav-container { position: relative; gap: 0.35rem; }
     .nav-links { display: none; }
     .mobile-menu-btn { display: block; }
+    .theme-toggle-btn, .snowfall-btn, .mobile-menu-btn { padding: 0.45rem 0.55rem; }
+    .featured-project { margin: 0.8rem; padding: 2rem 1rem; border-radius: 1rem; }
     .featured-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
     .featured-screenshots { flex-direction: column; align-items: center; gap:1rem; }
-    .phone-mockup { max-width: 150px; }
+    .phone-mockup { max-width: min(220px, 65vw); }
+    .wide-mockup { width:100%; max-width:100%; }
+    .preview-frame, .preview-frame img { min-height:240px; }
+    .screenshot.large { width: 100%; }
     .project-features { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
+    .project-link { width: 100%; justify-content: center; }
   }
 
   @media (max-width: 480px) {
     .projects-section { padding: 2rem 1rem; }
     .project-content { padding: 1.5rem; }
+    .featured-info .project-title { font-size: 1.6rem; }
+    .project-title { font-size: 1.25rem; }
   }
 </style>
 </head>
@@ -251,7 +311,7 @@
     <div class="nav-container">
       <div class="logo">Dharmendra N K R</div>
 
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('home') }}#about">About</a></li>
         <li><a href="{{ url_for('projects') }}" class="active">Projects</a></li>
@@ -259,7 +319,7 @@
         <li><a href="{{ url_for('home') }}#contact">Contact</a></li>
       </ul>
 
-      <button class="mobile-menu-btn" aria-label="Toggle menu">
+      <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
         <i class="fas fa-bars"></i>
       </button>
 
@@ -279,8 +339,8 @@
     <div class="featured-container">
       <div class="featured-content">
         <!-- Image on the left -->
-        <div class="featured-screenshots" style="justify-content:flex-start">
-          <div class="phone-mockup">
+        <div class="featured-screenshots wide-gallery">
+          <div class="wide-mockup">
             <img src="{{ url_for('static', filename='images/RL_ss.png') }}" alt="Warehouse Agent Using RL" class="screenshot large">
             <div class="screenshot-label">Agent Visualization</div>
           </div>
@@ -388,8 +448,8 @@
   <div class="featured-container">
     <div class="featured-content">
       <!-- image on the left for the new project -->
-      <div class="featured-screenshots" style="justify-content:flex-start">
-        <div class="phone-mockup">
+      <div class="featured-screenshots wide-gallery">
+        <div class="wide-mockup">
           <img src="{{ url_for('static', filename='images/heatmap.png') }}" alt="Zomato Bangalore - Heatmap" class="screenshot large">
           <div class="screenshot-label">Heatmap</div>
         </div>
@@ -463,9 +523,9 @@
       </div>
 
       <!-- Image on the right -->
-      <div class="featured-screenshots">
-        <div class="phone-mockup">
-          <img src="{{ url_for('static', filename='images/chrome_homepage.png') }}" alt="Chrome Homepage Extension" class="screenshot large" style="transform: translateX(-25%);">
+      <div class="featured-screenshots wide-gallery">
+        <div class="wide-mockup">
+          <img src="{{ url_for('static', filename='images/chrome_homepage.png') }}" alt="Chrome Homepage Extension" class="screenshot large">
           <div class="screenshot-label">New Tab Preview</div>
         </div>
       </div>
@@ -473,32 +533,108 @@
   </div>
 </section>
 
-  <!-- Other Projects Section -->
-  <section class="projects-section">
-    <h2 class="section-title">Other Projects</h2>
-    <p class="section-subtitle">Additional projects and side work</p>
-    
-    <div class="projects-grid">
-      <!-- Placeholder for future projects -->
-      <div class="project-card coming-soon" data-category="web">
-        <div class="project-image">
-          <i class="fas fa-plus-circle"></i>
-        </div>
-        <div class="project-content">
-          <div class="project-category">Coming Soon</div>
-          <h3 class="project-title">More Projects</h3>
-          <p class="project-description">
-            Additional projects and side work will be added here. 
-            Stay tuned for more exciting developments!
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">TBA</span>
+  <section class="featured-project">
+    <div class="featured-container">
+      <div class="featured-content">
+        <div class="featured-info">
+          <div class="project-category">AI Systems</div>
+          <h2 class="project-title">AI Concierge</h2>
+          <p class="project-description">Resort-grade AI concierge experience with agentic workflows for bookings, guest support, and personalized recommendations.</p>
+          <div class="project-features" style="margin-bottom:1rem">
+            <div class="feature-item"><i class="fas fa-robot"></i><span>Agentic guest support</span></div>
+            <div class="feature-item"><i class="fas fa-bed"></i><span>Booking assistance flow</span></div>
+            <div class="feature-item"><i class="fas fa-comments"></i><span>Conversational AI interface</span></div>
+            <div class="feature-item"><i class="fas fa-cubes"></i><span>Full-stack resort platform</span></div>
           </div>
-          <div class="project-links">
-            <a href="#" class="project-link disabled">
-              <i class="fas fa-clock"></i>
-              Coming Soon
-            </a>
+          <div class="project-tech">
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">Groq LLM</span>
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">PostgreSQL</span>
+          </div>
+          <div class="project-links" style="margin-top:0.75rem">
+            <a href="https://github.com/Dharmendra-nkr/grand-meridian-resort" class="project-link"><i class="fab fa-github"></i> View Code</a>
+          </div>
+        </div>
+        <div class="featured-screenshots wide-gallery">
+          <div class="wide-mockup">
+            <div class="preview-frame ai">
+              <img src="{{ url_for('static', filename='images/ai_concierge.png') }}" alt="AI Concierge preview" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+              <div class="preview-fallback"><i class="fas fa-concierge-bell"></i></div>
+            </div>
+            <div class="screenshot-label">Add ai_concierge.png to static/images for the live preview</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-project">
+    <div class="featured-container">
+      <div class="featured-content">
+        <div class="featured-screenshots wide-gallery">
+          <div class="wide-mockup">
+            <div class="preview-frame bio">
+              <img src="{{ url_for('static', filename='images/biobert.png') }}" alt="BioBERT preview" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+              <div class="preview-fallback"><i class="fas fa-dna"></i></div>
+            </div>
+            <div class="screenshot-label">Add biobert.png to static/images for the live preview</div>
+          </div>
+        </div>
+        <div class="featured-info">
+          <div class="project-category">NLP Research</div>
+          <h2 class="project-title">BioBERT Domain Adaptation</h2>
+          <p class="project-description">Domain-adaptive biomedical language modeling and transfer experiments for stronger contextual understanding in specialized NLP tasks.</p>
+          <div class="project-features" style="margin-bottom:1rem">
+            <div class="feature-item"><i class="fas fa-dna"></i><span>Biomedical language modeling</span></div>
+            <div class="feature-item"><i class="fas fa-brain"></i><span>Transfer learning experiments</span></div>
+            <div class="feature-item"><i class="fas fa-flask"></i><span>Domain adaptation pipeline</span></div>
+            <div class="feature-item"><i class="fas fa-notes-medical"></i><span>Specialized NLP evaluation</span></div>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">BioBERT</span>
+            <span class="tech-tag">Transformers</span>
+            <span class="tech-tag">PyTorch</span>
+            <span class="tech-tag">Python</span>
+          </div>
+          <div class="project-links" style="margin-top:0.75rem">
+            <a href="https://github.com/Dharmendra-nkr/Domain_adaptive_Models" class="project-link"><i class="fab fa-github"></i> View Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-project">
+    <div class="featured-container">
+      <div class="featured-content">
+        <div class="featured-info">
+          <div class="project-category">Financial NLP</div>
+          <h2 class="project-title">FinCause</h2>
+          <p class="project-description">Financial causality detection pipeline for identifying cause-effect relations in market and business narratives using NLP modeling.</p>
+          <div class="project-features" style="margin-bottom:1rem">
+            <div class="feature-item"><i class="fas fa-chart-line"></i><span>Cause-effect extraction</span></div>
+            <div class="feature-item"><i class="fas fa-file-invoice-dollar"></i><span>Financial text understanding</span></div>
+            <div class="feature-item"><i class="fas fa-magnifying-glass-chart"></i><span>Sentence-level classification</span></div>
+            <div class="feature-item"><i class="fas fa-brain"></i><span>NLP modeling workflow</span></div>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">NLP</span>
+            <span class="tech-tag">BERT</span>
+            <span class="tech-tag">Jupyter</span>
+            <span class="tech-tag">Python</span>
+          </div>
+          <div class="project-links" style="margin-top:0.75rem">
+            <a href="https://github.com/Dharmendra-nkr/Financial_causality_detection_NLP" class="project-link"><i class="fab fa-github"></i> View Code</a>
+          </div>
+        </div>
+        <div class="featured-screenshots wide-gallery">
+          <div class="wide-mockup">
+            <div class="preview-frame finance">
+              <img src="{{ url_for('static', filename='images/fincause.png') }}" alt="FinCause preview" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
+              <div class="preview-fallback"><i class="fas fa-chart-line"></i></div>
+            </div>
+            <div class="screenshot-label">Add fincause.png to static/images for the live preview</div>
           </div>
         </div>
       </div>
@@ -614,19 +750,36 @@
     // Mobile menu toggle (similar behavior to home page)
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
-    mobileMenuBtn && mobileMenuBtn.addEventListener('click', () => {
-      if(!navLinks) return;
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.gap = '0.5rem';
-      navLinks.style.padding = '0.5rem';
-      navLinks.style.background = 'var(--bg-secondary)';
-      navLinks.style.position = 'absolute';
-      navLinks.style.right = '1rem';
-      navLinks.style.top = '56px';
-      navLinks.style.borderRadius = '8px';
-      navLinks.style.boxShadow = '0 6px 18px rgba(16,24,40,0.06)';
-    });
+    if (mobileMenuBtn && navLinks) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('mobile-open');
+        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        if (window.innerWidth > 768) return;
+        const clickedInsideMenu = navLinks.contains(event.target);
+        const clickedToggle = mobileMenuBtn.contains(event.target);
+        if (!clickedInsideMenu && !clickedToggle) {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+          navLinks.classList.remove('mobile-open');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
 
     // Intersection Observer for animations
     const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
